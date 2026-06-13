@@ -1,0 +1,6 @@
+@ChessOnline.API_HostAddress = http://localhost:5058
+
+GET {{ChessOnline.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
