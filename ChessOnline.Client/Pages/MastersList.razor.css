@@ -1,0 +1,39 @@
+/* CSS for MastersList component */
+.player-div {
+    background-color: #b6ff00;
+    display: flex;
+    flex-direction: row;
+}
+
+.player-photo {
+    width: 128px;
+    height: 128px;
+    padding: 1px;
+}
+
+.player-header {
+    background-color: #6106ff;
+}
+
+.player-name {
+    font-weight: bold;
+}
+
+.player-title {
+    background-color: red;
+    font-weight: bold;
+    color: white;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.player-country {
+
+}
+
+.player-info {
+    background-color: #5094ff;
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+}

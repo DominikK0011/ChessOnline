@@ -1,0 +1,42 @@
+﻿@page "/history-board"
+
+<div class="history-page">
+	<h3>HistoryBoard</h3>
+
+	<div class="chess-board">
+		@for (int row = 0; row < 8; row++)
+		{
+			<div class="row">
+		
+			@for (int col = 0; col < 8; col++)
+			{
+				@if((row + col) % 2 == 0)
+				{
+						<div class="white-field size-field"></div>
+				}
+				else
+				{
+					<div class="black-field size-field"></div>
+				}
+			}
+		
+			</div>
+		}
+	</div>
+</div>
+@code {
+	public class ChessGame
+	{
+		public int Id { get; set; }
+		public string WhitePlayerId { get; set; } = "";
+		public string BlackPlayerId { get; set; } = "";
+		public DateTime Date { get; set; }
+		public string Result { get; set; } = "";
+	}
+	public class ChessType
+	{
+		public int Id { get; set; }
+		public string Name { get; set; } = "";
+		public TimeOnly time { get; set; }
+	}
+}

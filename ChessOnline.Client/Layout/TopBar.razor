@@ -1,0 +1,16 @@
+﻿@using ChessOnline.Client.Services
+@inject SidebarService Sidebar
+
+<div class="bar">
+	<div>
+		<button class="button-topbar" @onclick="Sidebar.ToggleSidebar">≡</button>
+		<a href="/">
+			<img src="/images/LogoWithBackground.png" alt="logo" class="logo-image" />
+		</a>
+	</div>
+	<div class="buttons-div">
+		<button class="button-topbar"> Zaloguj/Zarejestruj się </button>
+		<button class="button-topbar"> Wyloguj się </button>
+	</div>
+	
+</div>

@@ -1,0 +1,49 @@
+﻿@page "/masters-list"
+<h3>Lista graczy</h3>
+
+<PageTitle>Lista graczy</PageTitle>
+
+<div>
+	<hr />
+	@foreach (var player in Players)
+	{
+		<div class="player-div">
+			<div>
+				<img src="@player.PhotoURL" class="player-photo" />
+			</div>
+			<div class="player-info">
+				<div class="player-header">
+					<span class="player-name">@player.Name</span>
+					<span class="player-title">@player.Title</span>
+					<span class="player-country">@player.Country</span>
+				</div>
+				<div>
+					<span class="player-description">@player.Description</span>
+				</div>
+			</div>
+		</div>
+		<hr>
+	}
+</div>
+@code {
+	public class ChessPlayer
+	{
+		public int Id { get; set; }
+		public string Name { get; set; } = "";
+		public string PhotoURL { get; set; } = "";
+		public string? Title { get; set; }
+		public DateTime BirthDate { get; set; }
+		public int Elo { get; set; }
+		public string Country { get; set; } = "";
+		public string Description { get; set; } = "";
+	};
+	List<ChessPlayer> Players = new()
+	{
+		new ChessPlayer{ Id = 1, Name = "Magnus Carlsen", PhotoURL = "/images/LogoWithBackground.png", Title = "GM", BirthDate = new DateTime(1990, 11, 30), Elo = 3100, Country = "Norway",
+			Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident inventore debitis corporis? Voluptatum delectus tenetur minima? Autem, illum aspernatur veritatis laudantium possimus repellat quod ipsa quas obcaecati nesciunt rem blanditiis voluptas fuga quidem delectus harum cumque nostrum soluta architecto provident ut voluptatum a quia? Veritatis esse mollitia optio impedit porro dicta eum aperiam? Sit, provident omnis? Fugit, nisi ipsum numquam facere veritatis sit reiciendis est quibusdam ad. Perferendis reiciendis nobis dolores ad rerum eveniet, ratione delectus quas temporibus voluptas quod officiis, quia enim consectetur quaerat nostrum? Corrupti numquam voluptates fugiat expedita quo illo laboriosam, reiciendis pariatur rerum! Repellendus, ab animi!"
+		},
+		new ChessPlayer{ Id = 2, Name = "Hikaru Nakamura", PhotoURL = "/images/LogoWithBackground.png", Title = "GM", BirthDate = new DateTime(1987, 12, 9), Elo = 3200, Country = "USA",
+			Description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident inventore debitis corporis? Voluptatum delectus tenetur minima? Autem, illum aspernatur veritatis laudantium possimus repellat quod ipsa quas obcaecati nesciunt rem blanditiis voluptas fuga quidem delectus harum cumque nostrum soluta architecto provident ut voluptatum a quia? Veritatis esse mollitia optio impedit porro dicta eum aperiam? Sit, provident omnis? Fugit, nisi ipsum numquam facere veritatis sit reiciendis est quibusdam ad. Perferendis reiciendis nobis dolores ad rerum eveniet, ratione delectus quas temporibus voluptas quod officiis, quia enim consectetur quaerat nostrum? Corrupti numquam voluptates fugiat expedita quo illo laboriosam, reiciendis pariatur rerum! Repellendus, ab animi!"
+		}
+	};
+}

@@ -1,0 +1,28 @@
+.bar {
+    background-color: #000000;
+    padding: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo-image {
+    height: 64px;
+}
+
+.buttons-div {
+    display: flex;
+    justify-items: center;
+}
+
+@media (max-width: 800px) {
+
+    .logo-image {
+        height: 32px;
+    }
+
+    .buttons-div{
+        height: 32px;
+        min-width: 48px;
+        max-height: 48px;
+    }
+}
