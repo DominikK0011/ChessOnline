@@ -31,4 +31,69 @@
 
 .black-field {
     background-color: #2c2c2c;
+    color: white;
+}
+
+.id-square {
+    position: absolute;
+    z-index: 0;
+}
+
+/*TODO: MOVE TO GLOBAL CSS*/
+
+.chess-sprite {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 1200%;
+    background-image: url('/images/Chess-SpriteSheet.png');
+    z-index: 1;
+}
+
+.white-pawn {
+    background-position: 0% 0%;
+}
+
+.black-pawn {
+    background-position: 9.0909% 0%;
+}
+
+.white-rook {
+    background-position: 18.1818% 0%;
+}
+
+.black-rook {
+    background-position: 27.2727% 0%;
+}
+
+.white-knight {
+    background-position: 36.3636% 0%;
+}
+
+.black-knight {
+    background-position: 45.4545% 0%;
+}
+
+.white-bishop {
+    background-position: 54.5454% 0%;
+}
+
+.black-bishop {
+    background-position: 63.6363% 0%;
+}
+
+.white-queen {
+    background-position: 72.7272% 0%;
+}
+
+.black-queen {
+    background-position: 81.8181% 0%;
+}
+
+.white-king {
+    background-position: 90.9090% 0%;
+}
+
+.black-king {
+    background-position: 99.9999% 0%;
 }

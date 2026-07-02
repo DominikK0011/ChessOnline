@@ -4,27 +4,42 @@
 	<h3>HistoryBoard</h3>
 
 	<div class="chess-board">
-		@for (int row = 0; row < 8; row++)
+		@for (int row = 8; row >= 1; row--)
 		{
 			<div class="row">
-		
-			@for (int col = 0; col < 8; col++)
+			@foreach (ChessCol column in Enum.GetValues<ChessCol>())
 			{
-				@if((row + col) % 2 == 0)
+				string fieldId = $"{column.ToString().ToLower()}{row}";
+				string nameClass = "";
+				var key = (column.ToString(), row);
+				@if (PiecesPosition.ContainsKey(key))
 				{
-						<div class="white-field size-field"></div>
+					var currentPiece = PiecesPosition[key];
+					nameClass = $"chess-sprite {currentPiece.Color.ToString().ToLower()}-{currentPiece.Type.ToString().ToLower()}";
+				}
+				string fieldColor = "";
+				@if (((int)column + row) % 2 == 0)
+				{
+					fieldColor = "white-field size-field";
 				}
 				else
 				{
-					<div class="black-field size-field"></div>
+					fieldColor = "black-field size-field";
 				}
+				<div class=@fieldColor id=@fieldId>
+					<span class="id-square">@fieldId</span>
+					@if (!string.IsNullOrEmpty(nameClass))
+					{
+						<div draggable="true" class=@nameClass></div>
+					}
+				</div>
 			}
-		
 			</div>
 		}
 	</div>
 </div>
 @code {
+	//TODO: MOVE TO BACKEND
 	public class ChessGame
 	{
 		public int Id { get; set; }
@@ -37,6 +52,56 @@
 	{
 		public int Id { get; set; }
 		public string Name { get; set; } = "";
-		public TimeOnly time { get; set; }
+		public TimeOnly timeForBothPlayer { get; set; }
+	}
+
+	public Dictionary<(string, int), (string Type, string Color)> PiecesPosition = new Dictionary<(string, int), (string, string)>
+	{
+		{ ("A",2), ("Pawn", "White") },
+		{ ("B",2), ("Pawn", "White") },
+		{ ("C",2), ("Pawn", "White") },
+		{ ("D",2), ("Pawn", "White") },
+		{ ("E",2), ("Pawn", "White") },
+		{ ("F",2), ("Pawn", "White") },
+		{ ("G",2), ("Pawn", "White") },
+		{ ("H",2), ("Pawn", "White") },
+		{ ("A",1), ("Rook", "White") },
+		{ ("B",1), ("Knight", "White") },
+		{ ("C",1), ("Bishop", "White") },
+		{ ("D",1), ("Queen", "White") },
+		{ ("E",1), ("King", "White") },
+		{ ("F",1), ("Bishop", "White") },
+		{ ("G",1), ("Knight", "White") },
+		{ ("H",1), ("Rook", "White") },
+
+		{ ("A",7), ("Pawn", "Black") },
+		{ ("B",7), ("Pawn", "Black") },
+		{ ("C",7), ("Pawn", "Black") },
+		{ ("D",7), ("Pawn", "Black") },
+		{ ("E",7), ("Pawn", "Black") },
+		{ ("F",7), ("Pawn", "Black") },
+		{ ("G",7), ("Pawn", "Black") },
+		{ ("H",7), ("Pawn", "Black") },
+		{ ("A",8), ("Rook", "Black") },
+		{ ("B",8), ("Knight", "Black") },
+		{ ("C",8), ("Bishop", "Black") },
+		{ ("D",8), ("Queen", "Black") },
+		{ ("E",8), ("King", "Black") },
+		{ ("F",8), ("Bishop", "Black") },
+		{ ("G",8), ("Knight", "Black") },
+		{ ("H",8), ("Rook", "Black") }
+	};
+
+	//DONT MOVE
+	public enum ChessCol
+	{
+		A,
+		B,
+		C,
+		D,
+		E,
+		F,
+		G,
+		H
 	}
 }
