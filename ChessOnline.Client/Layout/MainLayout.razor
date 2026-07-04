@@ -1,6 +1,7 @@
 ﻿@using ChessOnline.Client.Services
 @inherits LayoutComponentBase
 @inject SidebarService Sidebar
+@inject NavigationManager NavMen
 
 <div class="main-container">
 	<header>
@@ -13,7 +14,7 @@
 				<NavSidebar />
 			</div>
 		}
-		<main class="main-article">
+		<main class="main-article @GetPageName()">
 			@Body
 		</main>
 	</div>
@@ -31,5 +32,23 @@
 	public void Dispose()
 	{
 		Sidebar.OnChange -= StateHasChanged;
+	}
+
+	private string GetPageName()
+	{
+		var uri = NavMen.ToBaseRelativePath(NavMen.Uri).ToLower();
+		Console.WriteLine($"Current URI: {uri}"); // Debugging line
+
+		var authPages = new[] { "login", "register" };
+
+		foreach (var page in authPages)
+		{
+			if (uri.StartsWith(page))
+			{
+				return "auth-page";
+			}
+		}
+
+		return "";
 	}
 }

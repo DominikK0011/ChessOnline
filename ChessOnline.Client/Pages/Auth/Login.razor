@@ -1,0 +1,26 @@
+﻿@page "/login"
+
+<h1>Login</h1>
+
+@*TODO: Make CSS*@
+
+<EditForm class="login-form" Model="loginModel" OnValidSubmit="@HandleLogin" >
+	<input type="email" placeholder = "E-mail" required @bind-value="loginModel.email"/>
+	<input type="password" placeholder = "Password" required @bind-value="loginModel.password"/>
+	<button type="submit">Zaloguj się</button>
+</EditForm>
+
+@code {
+	LoginDto loginModel = new LoginDto();
+
+	void HandleLogin()
+	{
+		//TODO
+	}
+
+	public class LoginDto
+	{
+		public string email { get; set; } = string.Empty;
+		public string password { get; set; } = string.Empty;
+	}
+}

@@ -18,6 +18,10 @@ header {
     width: 100%;
 }
 
+.content-wrapper:has(.auth-page) {
+    align-items: center;
+}
+
 .sidebar-absolute {
     position: absolute;
     height: 100%;
@@ -32,6 +36,14 @@ header {
     padding: 32px;
     margin: 32px;
     flex-shrink: 0;
+}
+
+.main-article.auth-page {
+    max-width: 400px;
+    padding: 16px;
+    margin: 16px;
+    background-color: green;
+    flex-shrink: 1;
 }
 
 .main-footer {
