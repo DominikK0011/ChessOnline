@@ -1,21 +1,24 @@
 ﻿@page "/register"
+@using System.Net.Http.Json
+@inject HttpClient Http
+
 
 <h3>Register</h3>
 @*TODO: Make CSS*@
 <EditForm Model="@registerModel" OnValidSubmit="@HandleRegistration">
 
 	<div> @*TODO: In one row*@
-		<input type="text" placeholder="Imie" @bind-value="registerModel.name" />
-		<input type="text" placeholder="Nazwisko" @bind-value="registerModel.surname" />
+		<input type="text" placeholder="Imie" @bind-value="registerModel.FirstName" />
+		<input type="text" placeholder="Nazwisko" @bind-value="registerModel.LastName" />
 	</div>
 
-	<input type="text" placeholder="Nick" @bind-value="registerModel.nick" />
-	<input type="date" placeholder="Data urodzenia" @bind-value="registerModel.birthday" />
-	<input type="email" placeholder="E-mail" @bind-value="registerModel.email" />
-	<input type="password" placeholder="Hasło" @bind-value="registerModel.password" />
+	<input type="text" placeholder="Nick" @bind-value="registerModel.UserName" />
+	<input type="date" placeholder="Data urodzenia" @bind-value="registerModel.Birthday" />
+	<input type="email" placeholder="E-mail" @bind-value="registerModel.Email" />
+	<input type="password" placeholder="Hasło" @bind-value="registerModel.Password" />
 
 	@*TODO: Download and write from backend*@
-	<select id="country" required>
+	<select id="country" required @bind="registerModel.Country">
 		<option disabled selected>Country</option>
 		<option value="PL">Polska</option>
 		<option value="UK">United Kingdom</option>
@@ -24,23 +27,48 @@
 	<button type="submit">Zarejestruj się</button>
 </EditForm>
 
+@*TODO: POPUP*@
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+	<div class="error-message">@errorMessage</div>
+}
+else if (!string.IsNullOrEmpty(successMessage))
+{
+	<div class="success-message">@successMessage</div>
+}
+
 @code {
 	RegisterDto registerModel = new RegisterDto();
 
-	void HandleRegistration()
-	{
-		//TODO
-		Console.WriteLine($"{registerModel.nick}");
-	}
+	private string? errorMessage;
+	private string? successMessage;
 
+	private async Task HandleRegistration()
+	{
+		errorMessage = null;
+		successMessage = null;
+
+		var response = await Http.PostAsJsonAsync("api/auth/register", registerModel);
+
+		if (response.IsSuccessStatusCode)
+		{
+			successMessage = "Rejestracja zakończona sukcesem!";
+			registerModel = new RegisterDto();
+		}
+		else
+		{
+			errorMessage = await response.Content.ReadAsStringAsync();
+		}
+	}
 
 	public class RegisterDto
 	{
-		public string name { get; set; } = string.Empty;
-		public string surname { get; set; } = string.Empty;
-		public string nick { get; set; } = string.Empty;
-		public DateTime birthday { get; set; }
-		public string email { get; set; } = string.Empty;
-		public string password { get; set; } = string.Empty;
+		public string FirstName { get; set; } = string.Empty;
+		public string LastName { get; set; } = string.Empty;
+		public string UserName { get; set; } = string.Empty;
+		public DateTime Birthday { get; set; }
+		public string Email { get; set; } = string.Empty;
+		public string Password { get; set; } = string.Empty;
+		public string Country { get; set; } = string.Empty;
 	}
 }

@@ -1,26 +1,55 @@
 ﻿@page "/login"
+@inject HttpClient Http
 
 <h1>Login</h1>
 
 @*TODO: Make CSS*@
 
 <EditForm class="login-form" Model="loginModel" OnValidSubmit="@HandleLogin" >
-	<input type="email" placeholder = "E-mail" required @bind-value="loginModel.email"/>
-	<input type="password" placeholder = "Password" required @bind-value="loginModel.password"/>
+	<input type="email" placeholder = "E-mail" required @bind-value="loginModel.Email"/>
+	<input type="password" placeholder = "Password" required @bind-value="loginModel.Password"/>
 	<button type="submit">Zaloguj się</button>
 </EditForm>
+
+
+@*TODO: POPUP*@
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+	<div class="error-message">@errorMessage</div>
+}
+else if (!string.IsNullOrEmpty(successMessage))
+{
+	<div class="success-message">@successMessage</div>
+}
 
 @code {
 	LoginDto loginModel = new LoginDto();
 
-	void HandleLogin()
+	string? errorMessage = string.Empty;
+	string? successMessage = string.Empty;
+
+	private async Task HandleLogin()
 	{
-		//TODO
+		errorMessage = null;
+		successMessage = null;
+
+		var response = await Http.PostAsJsonAsync("api/auth/login", loginModel);
+
+		if (response.IsSuccessStatusCode)
+		{
+			successMessage = "Zalogowano pomyślnie!";
+			//TODO
+		}
+		else
+		{
+			errorMessage = await response.Content.ReadAsStringAsync();
+		}
+
 	}
 
 	public class LoginDto
 	{
-		public string email { get; set; } = string.Empty;
-		public string password { get; set; } = string.Empty;
+		public string Email { get; set; } = string.Empty;
+		public string Password { get; set; } = string.Empty;
 	}
 }
