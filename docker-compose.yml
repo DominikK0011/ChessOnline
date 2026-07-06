@@ -18,7 +18,7 @@ services:
       dockerfile: ChessOnline.API/Dockerfile
     container_name: chess-api
     ports:
-      - "8080:80"
+      - "8081:80"
     depends_on:
       - chess-db
     environment:
