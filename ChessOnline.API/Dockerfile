@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ChessOnline.API/ChessOnline.API.csproj", "ChessOnline.API/"]
+COPY ["ChessOnline.Client/ChessOnline.Client.csproj", "ChessOnline.Client/"]
 RUN dotnet restore "./ChessOnline.API/ChessOnline.API.csproj"
 COPY . .
 WORKDIR "/src/ChessOnline.API"
