@@ -17,12 +17,24 @@ services:
       context: .
       dockerfile: ChessOnline.API/Dockerfile
     container_name: chess-api
+    restart: always
     ports:
-      - "8081:80"
+      - "8082:8080"
     depends_on:
       - chess-db
     environment:
-      - ConnectionStrings__DefaultConnection=Host=chess-postgres;Database=#{CHESS_DB_NAME};Username=${POSTGRES_USER};Password=${POSTGRES_PASSW}
+      - ConnectionStrings__DefaultConnection=Host=chess-postgres;Port=5432;Database=${CHESS_DB_NAME};Username=${POSTGRES_USER};Password=${POSTGRES_PASSW}
+
+  chess-client:
+    build:
+      context: .
+      dockerfile: ChessOnline.Client/Dockerfile
+    container_name: chess-client
+    restart: always
+    ports:
+      - "8081:80"
+    depends_on:
+      - chess-api
 
 volumes:
   pgdata:

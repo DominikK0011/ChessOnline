@@ -7,7 +7,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-var baseAdress = builder.Configuration["ApiBaseAddress"] ?? "https://localhost:7152";
+var baseAdress = "http://192.168.1.180:8082";
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAdress) });
 builder.Services.AddScoped<SidebarService>();
